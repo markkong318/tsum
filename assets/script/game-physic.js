@@ -13,6 +13,6 @@ cc.Class({
         //     cc.PhysicsManager.DrawBits.e_shapeBit
         // ;
 
-        // cc.director.getPhysicsManager().gravity= cc.v2(0, -1000);
+        cc.director.getPhysicsManager().gravity= cc.v2(0, -1000);
     },
 });

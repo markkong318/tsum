@@ -1,4 +1,4 @@
-const DISTANCE = 100;
+const DISTANCE = 20;
 const THRESHOLD = 2;
 
 cc.Class({
@@ -8,10 +8,8 @@ cc.Class({
 
     onLoad: function () {
         this.waiting = [];
-        this.done = [];
-
+        this.ballType = '';
         this.isTouched = false;
-
 
         GameEvent.on(GameEventType.BALL_TOUCH_START, this.handleTouchStart, this);
         GameEvent.on(GameEventType.BALL_TOUCH_END, this.handleTouchEnd, this);
@@ -23,6 +21,9 @@ cc.Class({
             return;
         }
 
+        const ballAttr = node.getComponent('ball-attr');
+        this.ballType = ballAttr.type;
+
         this.isTouched = true;
 
         this.waiting.push(node)
@@ -33,19 +34,23 @@ cc.Class({
             return;
         }
 
-        this.done = [];
+        const done = [];
 
         for (let i = 0; i < this.waiting.length; i++) {
-            this.done[i] = this.waiting[i];
+            done[i] = this.waiting[i];
         }
 
         this.waiting = [];
 
         this.isTouched = false;
 
-        if (this.done.length > THRESHOLD) {
-            for (let i = 0; i < this.done.length; i++) {
-                this.done[i].destroy();
+        if (done.length > THRESHOLD) {
+            for (let i = 0; i < done.length; i++) {
+                const ballAttr = done[i].getComponent('ball-attr');
+
+                this.scheduleOnce(() => {
+                    ballAttr.playDead();
+                }, 0.2 * i + 0.2);
             }
         }
     },
@@ -62,7 +67,11 @@ cc.Class({
             }
         }
 
-        if (this.waiting[this.waiting.length - 1] === node) {
+        // if (this.waiting[this.waiting.length - 1] === node) {
+        //     return;
+        // }
+
+        if (this.waiting.indexOf(node) > -1) {
             return;
         }
 
@@ -71,17 +80,27 @@ cc.Class({
             return;
         }
 
-        const p1 = this.waiting[this.waiting.length - 1].getPosition();
-        const p2 = node.getPosition();
+        if (ballAttr.type !== this.ballType) {
+            return;
+        }
 
-        const d = p1.sub(p2).mag();
+        const n1 = this.waiting[this.waiting.length - 1];
+        const n2 = node;
+
+        const c1 = n1.getComponent(cc.PhysicsCircleCollider);
+        const c2 = n2.getComponent(cc.PhysicsCircleCollider);
+
+        const p1 = n1.getPosition();
+        const p2 = n2.getPosition();
+
+        const d = p1.sub(p2).mag() - c1.radius * n1.scale - c2.radius * n2.scale;
 
         if (d > DISTANCE) {
             return;
         }
-        
-        this.waiting.push(node);
 
-        console.log(this.waiting);
+        console.log('add node');
+
+        this.waiting.push(node);
     },
 });
