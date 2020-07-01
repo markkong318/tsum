@@ -3,14 +3,15 @@
 cc.Class({
     extends: cc.Component,
 
-    properties: {},
+    properties: {
+        type: ''
+    },
 
     onLoad: function() {
-        this.type = '';
         this.isDead = false;
     },
 
     playDead: function() {
-        this.node.destroy();
+        this.node.opacity = 0;
     },
 });

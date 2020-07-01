@@ -52,6 +52,12 @@ cc.Class({
                     ballAttr.playDead();
                 }, 0.2 * i + 0.2);
             }
+
+            this.scheduleOnce(() => {
+                for (let i = 0; i < done.length; i++) {
+                    done[i].destroy();
+                }
+            }, 0.2 * (done.length - 1) + 0.2 + 0.2);
         }
     },
 
@@ -94,6 +100,8 @@ cc.Class({
         const p2 = n2.getPosition();
 
         const d = p1.sub(p2).mag() - c1.radius * n1.scale - c2.radius * n2.scale;
+
+        console.log('d: ' + d);
 
         if (d > DISTANCE) {
             return;

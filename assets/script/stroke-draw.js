@@ -21,7 +21,6 @@ cc.Class({
         const elim = node.getComponent('game-ball-kill');
 
         for (let i = 0; i < elim.waiting.length; i++) {
-            // console.log(elim.waiting[i].x +',' +  elim.waiting[i].y);
             ctx.circle(elim.waiting[i].x, elim.waiting[i].y, 8);
         }
 
