@@ -9,6 +9,7 @@ cc.Class({
         window.GameEventType = {
             BALL_TOUCH_START: 'BALL_TOUCH_START',
             BALL_TOUCH_END: 'BALL_TOUCH_END',
+            BALL_TOUCH_MOVE: 'BALL_TOUCH_MOVE',
             BALL_MOVE_ENTER: 'BALL_MOVE_ENTER',
             BALL_MOVE_EXIT: 'BALL_MOVE_EXIT',
             GAME_START: 'GAME_START',

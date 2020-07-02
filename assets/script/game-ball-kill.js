@@ -13,7 +13,11 @@ cc.Class({
 
         GameEvent.on(GameEventType.BALL_TOUCH_START, this.handleTouchStart, this);
         GameEvent.on(GameEventType.BALL_TOUCH_END, this.handleTouchEnd, this);
-        GameEvent.on(GameEventType.BALL_MOVE_ENTER, this.handleMoveEnter, this);
+        GameEvent.on(GameEventType.BALL_TOUCH_MOVE, this.handleMoveEnter, this);
+
+        // GameEvent.on(GameEventType.BALL_TOUCH_MOVE, (event) => {
+        //
+        // });
     },
 
     handleTouchStart(node) {
