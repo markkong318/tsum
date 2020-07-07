@@ -27,13 +27,15 @@ cc.Class({
         this.isTouched = true;
 
         this.waiting.push(node);
-        GameEvent.emit(GameEventType.BALL_CHOOSE, node);
+        GameEvent.emit(GameEventType.BALL_SELECT, node);
     },
 
     handleTouchEnd(node) {
         if (!this.isTouched) {
             return;
         }
+
+        GameEvent.emit(GameEventType.BALL_DESELECT);
 
         const done = [];
 
@@ -72,7 +74,7 @@ cc.Class({
         if (this.waiting.length > 1) {
             if (this.waiting[this.waiting.length - 2] === node) {
                 this.waiting.splice(-1, 1);
-                GameEvent.emit(GameEventType.BALL_CHOOSE, node);
+                GameEvent.emit(GameEventType.BALL_SELECT, node);
                 return;
             }
         }
@@ -110,6 +112,6 @@ cc.Class({
         console.log('add node');
 
         this.waiting.push(node);
-        GameEvent.emit(GameEventType.BALL_CHOOSE, node);
+        GameEvent.emit(GameEventType.BALL_SELECT, node);
     },
 });

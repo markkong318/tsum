@@ -5,11 +5,17 @@ cc.Class({
     },
 
     onLoad: function() {
+        this.isClicked = false;
+
         this.node.on('click', this.handleClick, this);
     },
 
     handleClick: function() {
-        console.log('btn');
+        if (this.isClicked === true) {
+            return;
+        }
+
+        this.isClicked = true;
 
         const balls = cc.find('Canvas/Ball').children;
 
@@ -17,9 +23,16 @@ cc.Class({
             const ball = balls[i];
             const body = ball.getComponent(cc.RigidBody);
 
-            body.applyForceToCenter(cc.v2(200000, 200000));
+            const fx = Math.random() * 2 - 1;
+            const fy = Math.random();
 
-            console.log('apply')
+            const force = cc.v2(fx, fy).normalize().mul(200000);
+
+            body.applyForceToCenter(force);
         }
+
+        this.scheduleOnce(() => {
+            this.isClicked = false;
+        }, 0.5);
     }
 });

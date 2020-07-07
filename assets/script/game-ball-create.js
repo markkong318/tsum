@@ -14,11 +14,16 @@ cc.Class({
     },
 
     lottery: function() {
+        const canvas = cc.find('Canvas');
+
         const parent = cc.find('Canvas/Ball');
 
         const ball = this.balls[Math.floor(Math.random() * this.balls.length)];
 
+        const x = Math.random() * canvas.width - canvas.width / 2;
+
         const node = cc.instantiate(ball);
+        node.x = x;
         node.active = true;
         node.parent = parent;
     },
