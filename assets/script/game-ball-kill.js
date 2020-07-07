@@ -1,4 +1,4 @@
-const DISTANCE = 20;
+const DISTANCE = 30;
 const THRESHOLD = 2;
 
 cc.Class({
@@ -14,10 +14,6 @@ cc.Class({
         GameEvent.on(GameEventType.BALL_TOUCH_START, this.handleTouchStart, this);
         GameEvent.on(GameEventType.BALL_TOUCH_END, this.handleTouchEnd, this);
         GameEvent.on(GameEventType.BALL_TOUCH_MOVE, this.handleMoveEnter, this);
-
-        // GameEvent.on(GameEventType.BALL_TOUCH_MOVE, (event) => {
-        //
-        // });
     },
 
     handleTouchStart(node) {
@@ -30,7 +26,8 @@ cc.Class({
 
         this.isTouched = true;
 
-        this.waiting.push(node)
+        this.waiting.push(node);
+        GameEvent.emit(GameEventType.BALL_CHOOSE, node);
     },
 
     handleTouchEnd(node) {
@@ -61,6 +58,8 @@ cc.Class({
                 for (let i = 0; i < done.length; i++) {
                     done[i].destroy();
                 }
+
+                GameEvent.emit(GameEventType.BALL_CREATE, done.length);
             }, 0.2 * (done.length - 1) + 0.2 + 0.2);
         }
     },
@@ -73,13 +72,10 @@ cc.Class({
         if (this.waiting.length > 1) {
             if (this.waiting[this.waiting.length - 2] === node) {
                 this.waiting.splice(-1, 1);
+                GameEvent.emit(GameEventType.BALL_CHOOSE, node);
                 return;
             }
         }
-
-        // if (this.waiting[this.waiting.length - 1] === node) {
-        //     return;
-        // }
 
         if (this.waiting.indexOf(node) > -1) {
             return;
@@ -114,5 +110,6 @@ cc.Class({
         console.log('add node');
 
         this.waiting.push(node);
+        GameEvent.emit(GameEventType.BALL_CHOOSE, node);
     },
 });
