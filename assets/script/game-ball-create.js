@@ -8,9 +8,8 @@ cc.Class({
     },
 
     onLoad: function () {
-        this.handleCreate(BALL_INIT_COUNT);
-
-        GameEvent.on(GameEventType.BALL_CREATE, this.handleCreate, this);
+        GameEvent.on(GameEventType.GAME_START, this.handleGameStart, this);
+        GameEvent.on(GameEventType.BALL_KILL, this.handleCreate, this);
     },
 
     lottery: function() {
@@ -26,6 +25,11 @@ cc.Class({
         node.x = x;
         node.active = true;
         node.parent = parent;
+    },
+
+    handleGameStart: function() {
+        console.log('handleGameStart');
+        this.handleCreate(BALL_INIT_COUNT);
     },
 
     handleCreate: function(count) {

@@ -1,4 +1,4 @@
-const DISTANCE = 30;
+const DISTANCE = 40;
 const THRESHOLD = 2;
 
 cc.Class({
@@ -61,7 +61,7 @@ cc.Class({
                     done[i].destroy();
                 }
 
-                GameEvent.emit(GameEventType.BALL_CREATE, done.length);
+                GameEvent.emit(GameEventType.BALL_KILL, done.length);
             }, 0.2 * (done.length - 1) + 0.2 + 0.2);
         }
     },

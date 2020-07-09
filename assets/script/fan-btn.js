@@ -29,6 +29,8 @@ cc.Class({
             const force = cc.v2(fx, fy).normalize().mul(200000);
 
             body.applyForceToCenter(force);
+
+            body.applyTorque(100000);
         }
 
         this.scheduleOnce(() => {

@@ -22,7 +22,7 @@ cc.Class({
         }
 
         this.node.x = this.targetNode.x;
-        this.node.y = this.targetNode.y + 60;
+        this.node.y = this.targetNode.y + 80;
     },
 
     handleSelect: function(node, idx) {

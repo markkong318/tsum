@@ -12,12 +12,17 @@ cc.Class({
             BALL_TOUCH_MOVE: 'BALL_TOUCH_MOVE',
             BALL_SELECT: 'BALL_SELECT',
             BALL_DESELECT: 'BALL_DESELECT',
-            BALL_CREATE: 'BALL_CREATE',
+            BALL_KILL: 'BALL_KILL',
+            GAME_READY: 'GAME_READY',
             GAME_START: 'GAME_START',
             GAME_OVER: 'GAME_OVER',
         };
 
         window.NodeEventType = {
         };
+    },
+
+    start: function() {
+        GameEvent.emit(GameEventType.GAME_START);
     },
 });
