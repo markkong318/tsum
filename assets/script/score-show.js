@@ -1,26 +1,15 @@
-const BALL_SCORE = 10;
-
 cc.Class({
     extends: cc.Component,
 
     properties: {},
 
     onLoad: function() {
-        this.score = 0;
-
         this.label = this.node.getComponent(cc.Label);
 
-        GameEvent.on(GameEventType.GAME_READY, this.handleGameReady, this);
-        GameEvent.on(GameEventType.BALL_KILL, this.handleBallKill, this);
+        GameEvent.on(GameEventType.SCORE_UPDATE, this.handleScoreUpdate, this);
     },
 
-    handleGameReady: function() {
-        this.score = 0;
-        this.label.string = this.score;
-    },
-
-    handleBallKill: function(length) {
-        this.score += length * BALL_SCORE;
-        this.label.string = this.score;
+    handleScoreUpdate: function(score) {
+        this.label.string = score;
     },
 });

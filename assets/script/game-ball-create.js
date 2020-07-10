@@ -28,7 +28,6 @@ cc.Class({
     },
 
     handleGameStart: function() {
-        console.log('handleGameStart');
         this.handleCreate(BALL_INIT_COUNT);
     },
 

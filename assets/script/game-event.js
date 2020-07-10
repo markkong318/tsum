@@ -16,6 +16,10 @@ cc.Class({
             GAME_READY: 'GAME_READY',
             GAME_START: 'GAME_START',
             GAME_OVER: 'GAME_OVER',
+            GAME_PAUSE: 'GAME_PAUSE',
+            GAME_RESUME: 'GAME_RESUME',
+            TIMER_UPDATE: 'TIMER_UPDATE',
+            SCORE_UPDATE: 'SCORE_UPDATE',
         };
 
         window.NodeEventType = {
