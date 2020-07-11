@@ -13,7 +13,7 @@ cc.Class({
         ctx.clear();
 
         const node = cc.find('Game');
-        const gameBallKill = node.getComponent('game-ball-kill');
+        const gameBallKill = node.getComponent('game-ball-match');
 
         for (let i = 0; i < gameBallKill.waiting.length; i++) {
             ctx.circle(gameBallKill.waiting[i].x, gameBallKill.waiting[i].y, 12);
@@ -23,10 +23,6 @@ cc.Class({
             if (i !==  gameBallKill.waiting.length - 1) {
                 const from = gameBallKill.waiting[i];
                 const to = gameBallKill.waiting[i + 1];
-
-                console.log(i);
-                console.log(from);
-                console.log(to);
 
                 ctx.moveTo(from.x, from.y);
                 ctx.lineTo(to.x, to.y);

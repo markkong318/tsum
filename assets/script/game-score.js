@@ -8,18 +8,18 @@ cc.Class({
     onLoad: function() {
         this.score = 0;
 
-        GameEvent.on(GameEventType.GAME_READY, this.handleGameReady, this);
-        GameEvent.on(GameEventType.BALL_KILL, this.handleBallKill, this);
+        GameEvent.on(GameEventType.SCORE_RESET, this.handleScoreReset, this);
+        GameEvent.on(GameEventType.GAME_SUM, this.handleGameSum, this);
     },
 
-    handleGameReady: function() {
+    handleScoreReset: function() {
         this.score = 0;
 
         GameEvent.emit(GameEventType.SCORE_UPDATE, this.score);
     },
 
-    handleBallKill: function(length) {
-        this.score += length * BALL_SCORE;
+    handleGameSum: function({ balls }) {
+        this.score += balls.length * BALL_SCORE;
 
         GameEvent.emit(GameEventType.SCORE_UPDATE, this.score);
     },

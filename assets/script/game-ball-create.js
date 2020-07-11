@@ -1,5 +1,3 @@
-const BALL_INIT_COUNT = 40;
-
 cc.Class({
     extends: cc.Component,
 
@@ -8,8 +6,8 @@ cc.Class({
     },
 
     onLoad: function () {
-        GameEvent.on(GameEventType.GAME_START, this.handleGameStart, this);
-        GameEvent.on(GameEventType.BALL_KILL, this.handleCreate, this);
+        GameEvent.on(GameEventType.BALL_CREATE, this.handleBallCreate, this);
+        GameEvent.on(GameEventType.BALL_CLEAN_ALL, this.handleCleanAll, this);
     },
 
     lottery: function() {
@@ -27,13 +25,16 @@ cc.Class({
         node.parent = parent;
     },
 
-    handleGameStart: function() {
-        this.handleCreate(BALL_INIT_COUNT);
-    },
-
-    handleCreate: function(count) {
+    handleBallCreate: function(count) {
         for (let i = 0; i < count; i++) {
             this.lottery();
+        }
+    },
+
+    handleCleanAll: function () {
+        const balls = cc.find('Canvas/Ball').children;
+        for (let i = 0; i < balls.length; i++) {
+            balls[i].destroy();
         }
     },
 });

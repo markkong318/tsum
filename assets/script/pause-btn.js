@@ -9,7 +9,6 @@ cc.Class({
     },
 
     handleClick: function() {
-        console.log('GAME_PAUSE');
         GameEvent.emit(GameEventType.GAME_PAUSE);
     },
 });

@@ -1,4 +1,4 @@
-const SECOND = 10;
+const SECOND = 60;
 
 cc.Class({
     extends: cc.Component,
@@ -8,12 +8,17 @@ cc.Class({
     onLoad: function() {
         this.second = SECOND;
 
+        GameEvent.on(GameEventType.TIMER_RESET, this.handleTimerReset, this);
         GameEvent.on(GameEventType.GAME_START, this.handleGameStart, this);
     },
 
-    handleGameStart: function() {
+    handleTimerReset: function() {
         this.second = SECOND;
 
+        GameEvent.emit(GameEventType.TIMER_UPDATE, this.second);
+    },
+
+    handleGameStart: function() {
         this.schedule(this.handleCountDown, 1, this);
     },
 
@@ -25,7 +30,9 @@ cc.Class({
         if (this.second === 0) {
             this.unschedule(this.handleCountDown, this);
 
-            GameEvent.emit(GameEventType.GAME_OVER);
+            this.scheduleOnce(() => {
+                GameEvent.emit(GameEventType.GAME_OVER);
+            }, 2);
         }
     },
 });

@@ -48,6 +48,10 @@ cc.Class({
         this.isTouched = false;
 
         if (done.length > THRESHOLD) {
+            GameEvent.emit(GameEventType.GAME_SUM, {
+                balls: done,
+            });
+            
             for (let i = 0; i < done.length; i++) {
                 const ballAttr = done[i].getComponent('ball-attr');
 
@@ -61,7 +65,7 @@ cc.Class({
                     done[i].destroy();
                 }
 
-                GameEvent.emit(GameEventType.BALL_KILL, done.length);
+                GameEvent.emit(GameEventType.BALL_CREATE, done.length);
             }, 0.2 * (done.length - 1) + 0.2 + 0.2);
         }
     },

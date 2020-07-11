@@ -4,6 +4,8 @@ cc.Class({
     properties: {},
 
     onLoad: function() {
+        this.maskNode = this.node.getChildByName('Mask');
+
         this.node.on(cc.Node.EventType.TOUCH_START, () => {
         });
 
@@ -14,8 +16,7 @@ cc.Class({
         });
 
         this.node.on(cc.Node.EventType.TOUCH_END, () => {
-            GameEvent.emit(GameEventType.GAME_RESUME);
+            GameEvent.emit(GameEventType.GAME_READY);
         });
     },
-
 });
