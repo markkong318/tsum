@@ -5,7 +5,7 @@ This is a imitation version of tsum tsum game.
 Cocos Creator version: 2.3.3
 
 
-## demo
+## Demo
 
 https://markkong318.github.io/tsum/
 
